@@ -1,6 +1,8 @@
 package ep2024.u5w1d4.entities;
 
 import ep2024.u5w1d4.enums.ReservationStatus;
+import ep2024.u5w1d4.services.PizzaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +16,15 @@ import java.util.List;
 @PropertySource("application.properties")
 public class AppConfig {
 
+    @Autowired
+    private PizzaService pizzaService;
+
     @Bean
     @Primary
     public Pizza getMargherita() {
-        return new Pizza("Margherita", 8, 700);
+        Pizza margherita = new Pizza("Margherita", 8, 700);
+//        pizzaService.savePizza(margherita);
+        return margherita;
     }
 
     @Bean
@@ -25,6 +32,7 @@ public class AppConfig {
         Pizza hawaiian = new Pizza("Hawaiian", 10, 924);
         hawaiian.addTopping("Ham");
         hawaiian.addTopping("Pineapple");
+//        pizzaService.savePizza(hawaiian);
         return hawaiian;
     }
 
@@ -32,6 +40,7 @@ public class AppConfig {
     public Pizza getSalami() {
         Pizza salami = new Pizza("Salami", 9, 1160);
         salami.addTopping("Salami");
+//        pizzaService.savePizza(salami);
         return salami;
     }
 
@@ -39,6 +48,7 @@ public class AppConfig {
     public Pizza getPepperoni() {
         Pizza pepperoni = new Pizza("Pepperoni", 9.5, 1100);
         pepperoni.addTopping("Pepperoni");
+//        pizzaService.savePizza(pepperoni);
         return pepperoni;
     }
 
@@ -48,6 +58,7 @@ public class AppConfig {
         vegetarian.addTopping("Bell Peppers");
         vegetarian.addTopping("Onions");
         vegetarian.addTopping("Olives");
+//        pizzaService.savePizza(vegetarian);
         return vegetarian;
     }
 
@@ -57,6 +68,7 @@ public class AppConfig {
         fourCheese.addTopping("Parmesan");
         fourCheese.addTopping("Gorgonzola");
         fourCheese.addTopping("Ricotta");
+//        pizzaService.savePizza(fourCheese);
         return fourCheese;
     }
 

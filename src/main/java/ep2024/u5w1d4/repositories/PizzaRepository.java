@@ -12,5 +12,4 @@ public interface PizzaRepository extends JpaRepository<Pizza, Long> {
     Optional<Pizza> findByName(String name);
 
     Optional<Pizza> findByNameStartingWithIgnoreCase(String partialName);
-
 }

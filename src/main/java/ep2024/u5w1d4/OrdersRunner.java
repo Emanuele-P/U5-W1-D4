@@ -2,12 +2,20 @@ package ep2024.u5w1d4;
 
 import ep2024.u5w1d4.entities.*;
 import ep2024.u5w1d4.enums.OrderStatus;
+import ep2024.u5w1d4.services.PizzaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrdersRunner implements CommandLineRunner {
+
+    @Autowired
+    private PizzaService pizzaService;
+
+    @Autowired
+    private Menu menu;
 
     @Override
     public void run(String... args) throws Exception {
@@ -24,7 +32,8 @@ public class OrdersRunner implements CommandLineRunner {
             o1.addDrink(context.getBean("getWater", Drink.class));
             o1.addDrink(context.getBean("getWater", Drink.class));
             o1.addDrink(context.getBean("getWine", Drink.class));
-            o1.addPizza(context.getBean("getMargherita", Pizza.class));
+//            o1.addPizza(context.getBean("getMargherita", Pizza.class));
+            o1.addPizza(menu.getPizzas().get(0));
             o1.addPizza(context.getBean("getSalami", Pizza.class));
             o1.addPizza(context.getBean("getVegetarian", Pizza.class));
             o1.addPizza(context.getBean("getPepperoni", Pizza.class));
@@ -41,5 +50,20 @@ public class OrdersRunner implements CommandLineRunner {
         } finally {
             context.close();
         }
+
+        try {
+            pizzaService.findByIdAndDelete(0);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+//        try {
+//            pizzaService.findByIdAndUpdate(1, new Pizza("Margherita", 8.50, 750));
+//        } catch (Exception ex) {
+//            System.err.println(ex.getMessage());
+//        }
+
+        System.out.println("Number of pizzas currently available: " + pizzaService.count());
+        pizzaService.findAll().forEach(System.out::println);
     }
 }
