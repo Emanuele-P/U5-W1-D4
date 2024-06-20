@@ -1,14 +1,25 @@
 package ep2024.u5w1d4.entities;
 
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "pizzas")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Pizza {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    private long id;
     private String name;
     private double price;
     private int calories;
